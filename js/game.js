@@ -12,8 +12,8 @@ var game = {
 	// Run on page load.
 	"onload" : function () {
 	// Initialize the video.
-	if (!me.video.init("screen",  me.video.CANVAS, 1067, 600, true, '1.0')) {
-		alert("Your browser does not support HTML5 canvas.");
+	if (!me.video.init("screen",  me.video.CANVAS, 1067, 600, true, '1.0')) {	//loads the resolution
+		alert("Your browser does not support HTML5 canvas.");	
 		return;
 	}
 
@@ -43,6 +43,6 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
-		me.state.change(me.state.PLAY); 
+		me.state.change(me.state.PLAY); //allows the game to play
 	}
 };
