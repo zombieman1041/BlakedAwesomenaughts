@@ -15,9 +15,19 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 				return(new me.Rect(0, 0, 64, 64)) . toPolygon();	//creates a little rectangle for what the player can walk into.
 			}
 		}]);
+
+		this.body.setVelocity(5, 0); //sets velocity to 5
 	},
 
-	update: function(){
+	update: function(delta){
+		if(me.input.isKeyPressed("right")){	//checks to see if the right key is pressed
+			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
+		}
+		else{
+			this.body.vel.x = 0;	//stops the movement
+		}
 
+		this.body.update(delta);	//delta is the change in time
+		return true;
 	}
 });
