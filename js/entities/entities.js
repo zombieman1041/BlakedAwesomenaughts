@@ -16,7 +16,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 			}
 		}]);
 
-		this.body.setVelocity(5, 0); //sets velocity to 5
+		this.body.setVelocity(5, 20); //sets velocity to 5
 	},
 
 	update: function(delta){
