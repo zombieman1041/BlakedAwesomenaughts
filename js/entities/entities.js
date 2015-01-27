@@ -17,17 +17,32 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		}]);
 
 		this.body.setVelocity(5, 20); //sets velocity to 5
+
+		this.renderable.addAnimation("idle", [78]);	
+		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
+		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update: function(delta){
 		if(me.input.isKeyPressed("right")){	//checks to see if the right key is pressed
 			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
+			this.flipX(false);
 		}
 		else{
 			this.body.vel.x = 0;	//stops the movement
 		}
 
+		if(this.body.vel.x !== 0){
+		if (!this.renderable.isCurrentAnimation("walk")) {
+			this.renderable.setCurrentAnimation("walk");
+		};			
+	}
+	else{
+		this.renderable.setCurrentAnimation("idle");
+	}
+
 		this.body.update(delta);	//delta is the change in time
+		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
 });
