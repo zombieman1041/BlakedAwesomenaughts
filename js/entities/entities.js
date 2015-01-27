@@ -18,9 +18,9 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 
 		this.body.setVelocity(5, 20); //sets velocity to 5
 
-		this.renderable.addAnimation("idle", [78]);	
-		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
-		this.renderable.setCurrentAnimation("idle");
+		this.renderable.addAnimation("idle", [78]);	//idle animation
+		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);	//walking animation
+		this.renderable.setCurrentAnimation("idle");	//sets the idle animation
 	},
 
 	update: function(delta){
@@ -33,13 +33,29 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		}
 
 		if(this.body.vel.x !== 0){
-		if (!this.renderable.isCurrentAnimation("walk")) {
+		if (!this.renderable.isCurrentAnimation("walk")) {	//sets the current animation for walk
 			this.renderable.setCurrentAnimation("walk");
 		};			
 	}
 	else{
-		this.renderable.setCurrentAnimation("idle");
+		this.renderable.setCurrentAnimation("idle");	//if the player is not walking it uses idle animation
 	}
+	// 	if(me.input.isKeyPressed("left")){	//checks to see if the left key is pressed
+	// 		this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
+	// 		this.flipX(true);
+	// 	}
+	// 	else{
+	// 		this.body.vel.x = 0;	//stops the movement
+	// 	}
+
+	// 	if(this.body.vel.x !== 0){
+	// 	if (!this.renderable.isCurrentAnimation("walk")) {
+	// 		this.renderable.setCurrentAnimation("walk");
+	// 	};			
+	// }
+	// else{
+	// 	this.renderable.setCurrentAnimation("idle");
+	// }	
 
 		this.body.update(delta);	//delta is the change in time
 		this._super(me.Entity, "update", [delta]);
