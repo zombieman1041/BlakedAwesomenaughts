@@ -17,7 +17,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		}]);
 
 		this.body.setVelocity(5, 20); //sets velocity to 5
-
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		this.renderable.addAnimation("idle", [78]);	//idle animation
 		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);	//walking animation
 		this.renderable.setCurrentAnimation("idle");	//sets the idle animation
@@ -80,12 +80,15 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.body.onCollision = this.onCollision.bind(this);
 
 		this.type = "PlayerBaseEntity";
-
+		this.renderable.addAnimation("idle", [0]);
+		this.renderable.addAnimation("broken", [1]);
+		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");	
 		}
 		this.body.update(delta);
 		this._super(me.Entity,"update",[delta]);
@@ -114,12 +117,15 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.body.onCollision = this.onCollision.bind(this);
 
 		this.type = "EnemyBaseEntity";
-
+		this.renderable.addAnimation("idle", [0]);
+		this.renderable.addAnimation("broken", [1]);
+		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");
 		}
 		this.body.update(delta);
 		this._super(me.Entity,"update",[delta]);
