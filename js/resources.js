@@ -7,6 +7,7 @@ game.resources = [
 {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"}, //loads background tiles for map
 {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},	//loads meta-tiles for map
 {name: "player", type:"image", src: "data/img/skeletonDagger.png"}, //loads the player
+{name: "tower", type:"image", src: "data/img/tower_round.svg.png"}, //loads the player
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
