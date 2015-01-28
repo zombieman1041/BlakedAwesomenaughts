@@ -40,8 +40,8 @@ var game = {
 	// Run on game resources loaded.
 	"loaded" : function () {
 		me.pool.register("player", game.PlayerEntity, true);	//adds the player to the pool to be registered
-		me.pool.register("PlayerBase", game.PlayerBaseEntity, true);
-		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);
+		me.pool.register("PlayerBase", game.PlayerBaseEntity, true);	//adds the player base to the pool
+		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);		//adds the enemy base to the pool
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 

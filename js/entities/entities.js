@@ -17,7 +17,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		}]);
 
 		this.body.setVelocity(5, 20); //sets velocity to 5
-		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);	//makes camera follow you
 		this.renderable.addAnimation("idle", [78]);	//idle animation
 		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);	//walking animation
 		this.renderable.setCurrentAnimation("idle");	//sets the idle animation
@@ -62,7 +62,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		return true;
 	}
 });
-game.PlayerBaseEntity = me.Entity.extend({
+game.PlayerBaseEntity = me.Entity.extend({	//creates the player base
 	init : function(x, y, settings){
 		this._super(me.Entity,'init', [x, y,{
 			image: "tower",
@@ -74,7 +74,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 				return (new me.Rect(0, 0, 100, 100)) . toPolygon();
 			}
 		}])
-		this.broken = false;
+		this.broken = false;	//atributes to the player base
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
@@ -85,7 +85,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.renderable.setCurrentAnimation("idle");
 	},
 
-	update:function(delta){
+	update:function(delta){	//if health reaches zero it changes the image to "broken"
 		if(this.health<=0){
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");	
@@ -99,7 +99,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 	}
 });
 
-game.EnemyBaseEntity = me.Entity.extend({
+game.EnemyBaseEntity = me.Entity.extend({	//creates the enemy base
 	init : function(x, y, settings){
 		this._super(me.Entity,'init', [x, y,{
 			image: "tower",
@@ -111,7 +111,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 				return (new me.Rect(0, 0, 100, 100)) . toPolygon();
 			}
 		}])
-		this.broken = false;
+		this.broken = false;	//atributes of the enemy base
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
@@ -122,7 +122,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.renderable.setCurrentAnimation("idle");
 	},
 
-	update:function(delta){
+	update:function(delta){		//if health reaches zero image changes to "broken"
 		if(this.health<=0){
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");
