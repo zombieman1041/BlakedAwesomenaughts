@@ -21,7 +21,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		this.renderable.addAnimation("idle", [78]);	//idle animation
 		this.renderable.addAnimation("walk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);	//walking animation
 		this.renderable.setCurrentAnimation("idle");	//sets the idle animation
-		this.renderable.addAnimation("attack", [195, 196, 197, 198, 199, 200], 80);
+		this.renderable.addAnimation("attack", [195, 196, 197, 198, 199, 200], 80);	//setting the attack animation
 	},
 
 	update: function(delta){
@@ -32,7 +32,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		else{
 			this.body.vel.x = 0;	//stops the movement
 		}
-	if(me.input.isKeyPressed("attack")){
+	if(me.input.isKeyPressed("attack")){	//attack key
 			if(!this.renderable.isCurrentAnimation("attack")){
 				this.renderable.setCurrentAnimation("attack", "idle");
 				this.renderable.setAnimationFrame();
@@ -63,7 +63,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	// else{
 	// 	this.renderable.setCurrentAnimation("idle");
 	// }	
-	if(me.input.isKeyPressed("attack")){
+	if(me.input.isKeyPressed("attack")){	//animations for attack
 			if(!this.renderable.isCurrentAnimation("attack")){
 				this.renderable.setCurrentAnimation("attack", "idle");
 				this.renderable.setAnimationFrame();
