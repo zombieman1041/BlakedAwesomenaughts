@@ -29,7 +29,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
 			this.flipX(false);
 		}
-		else if(me.input.isKeyPressed("left")){
+		else if(me.input.isKeyPressed("left")){		//allows the player to move left
 			this.body.vel.x -= this.body.accel.x * me.timer.tick;
 			this.flipX(true);	
 		}
@@ -40,7 +40,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 
 
 
-		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling){
+		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling){	//allows the player to jump without double jumping or falling and jumping
 			this.body.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		}
