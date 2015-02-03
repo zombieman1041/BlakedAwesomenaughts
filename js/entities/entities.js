@@ -193,9 +193,10 @@ game.EnemyBaseEntity = me.Entity.extend({	//creates the enemy base
 		this.health--;
 	}
 });
-game.EnemyCreep = me.Entity.extend({
+
+game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 	init: function(x, y, settings){
-		this._super(me.Entity,'init', [x, y, {
+		this._super(me.Entity,'init', [x, y, {	//creates the creeps size and image
 			image: "creep1",
 			width:32,
 			height:64,
@@ -205,14 +206,14 @@ game.EnemyCreep = me.Entity.extend({
 				return (new me.Rect(0, 0, 32, 64)).toPolygon();
 			}
 		}]);
-		this.health = 10;
+		this.health = 10;	//sets up the attributes 
 		this.alwaysUpdate = true;
 
 		this.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
 
-		this.renderable.addAnimation("walk", [3, 4, 5], 80);
+		this.renderable.addAnimation("walk", [3, 4, 5], 80);	//sets up the animations for walk
 		this.renderable.setCurrentAnimation("walk");
 	}
 })
