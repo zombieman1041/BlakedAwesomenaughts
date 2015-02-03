@@ -218,7 +218,7 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 	}
 });
 
-game.GameManager = Object.extend({
+game.GameManager = Object.extend({	//creates a game manager to manage the timer
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
@@ -226,7 +226,7 @@ game.GameManager = Object.extend({
 		this.alwaysUpdate = true;
 	},
 
-	update: function(){
+	update: function(){	//creates new creeps
 		this.now = new Date().getTime();
 
 		if (Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
