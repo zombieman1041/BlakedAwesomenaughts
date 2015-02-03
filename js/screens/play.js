@@ -13,7 +13,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		me.input.bindKey(me.input.KEY.RIGHT, "right"); //sets the key to move right the right arrow
 		me.input.bindKey(me.input.KEY.A, "attack");		//binds the key A for attack
-		me.input.bindKey(me.input.KEY.SPACE, "jump");	//binds the key space bar for jump
+		me.input.bindKey(me.input.KEY.SPACE, "jump");	//binds the key space bar for jump	
 		me.input.bindKey(me.input.KEY.LEFT, "left"); //sets the key to move left the left arrow
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
