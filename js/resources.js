@@ -8,6 +8,7 @@ game.resources = [
 {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},	//loads meta-tiles for map
 {name: "player", type:"image", src: "data/img/skeletonDagger.png"}, //loads the player
 {name: "tower", type:"image", src: "data/img/tower_round.svg.png"}, //loads the player
+{name: "creep1", type:"image", src: "data/img/brainmonster.png"}, //loads the player
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
