@@ -11,6 +11,9 @@ game.PlayScreen = me.ScreenObject.extend({
 		var player = me.pool.pull("player", 0, 420, {});	//loads the player to the map
 		me.game.world.addChild(player, 5);	//adds the player to the world
 
+		var gamemanager = me.pool.pull("GameManager", 0, 0, {});
+		me.game.world.addChild(gamemanager, 0);
+
 		me.input.bindKey(me.input.KEY.RIGHT, "right"); //sets the key to move right the right arrow
 		me.input.bindKey(me.input.KEY.A, "attack");		//binds the key A for attack
 		me.input.bindKey(me.input.KEY.SPACE, "jump");	//binds the key space bar for jump	
