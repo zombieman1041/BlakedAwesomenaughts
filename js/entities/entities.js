@@ -134,7 +134,7 @@ game.PlayerBaseEntity = me.Entity.extend({	//creates the player base
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 
-		this.type = "PlayerBaseEntity";
+		this.type = "PlayerBase";
 		this.renderable.addAnimation("idle", [0]);
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
@@ -148,6 +148,10 @@ game.PlayerBaseEntity = me.Entity.extend({	//creates the player base
 		this.body.update(delta);
 		this._super(me.Entity,"update",[delta]);
 		return true;
+	},
+
+	loseHealth: function(damage){
+		this.health = this.health-damage;
 	},
 	onCollision: function(){
 
@@ -208,13 +212,38 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 		}]);
 		this.health = 10;	//sets up the attributes 
 		this.alwaysUpdate = true;
-
+		this.attacking = false;
+		this.lastAttacking = new Date().getTime();
+		this.lastHit = new Date().getTime();
+		this.now = new Date().getTime();
 		this.body.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
 
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);	//sets up the animations for walk
 		this.renderable.setCurrentAnimation("walk");
+	},
+
+	update: function(delta){
+		this.now = new Date() . getTime();
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
+		this.body.update(delta);
+		this._super(me.Entity,"update", [delta]);
+		return true;
+	},
+
+	collideHandler: function(response){
+		if(response.b.type==='PlayerBase'){
+			this.attacking=true;
+			//this.lastAttacking=this.now;
+			this.body.vel.x=0;
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >= 1000)){
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
+		}
 	}
 });
 
