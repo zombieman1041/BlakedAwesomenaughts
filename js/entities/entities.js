@@ -150,7 +150,7 @@ game.PlayerBaseEntity = me.Entity.extend({	//creates the player base
 		return true;
 	},
 
-	loseHealth: function(damage){
+	loseHealth: function(damage){	// makes the player base lose health by creeps
 		this.health = this.health-damage;
 	},
 	onCollision: function(){
@@ -212,10 +212,10 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 		}]);
 		this.health = 10;	//sets up the attributes 
 		this.alwaysUpdate = true;
-		this.attacking = false;
-		this.lastAttacking = new Date().getTime();
-		this.lastHit = new Date().getTime();
-		this.now = new Date().getTime();
+		this.attacking = false;	//lets us know when the enemy is attacking
+		this.lastAttacking = new Date().getTime();	//lets us know when the enemy last attacked
+		this.lastHit = new Date().getTime();	//keeps track on the last time the enemy hit anything
+		this.now = new Date().getTime();	//creates a timer
 		this.body.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
@@ -225,23 +225,23 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 	},
 
 	update: function(delta){
-		this.now = new Date() . getTime();
-		this.body.vel.x -= this.body.accel.x * me.timer.tick;
-		me.collision.check(this, true, this.collideHandler.bind(this), true);
-		this.body.update(delta);
+		this.now = new Date() . getTime();	//creates a timer
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;	//causes creeps to move
+		me.collision.check(this, true, this.collideHandler.bind(this), true);	//checks for collisions
+		this.body.update(delta);	//causes the creep to fall to the ground
 		this._super(me.Entity,"update", [delta]);
 		return true;
 	},
 
 	collideHandler: function(response){
-		if(response.b.type==='PlayerBase'){
+		if(response.b.type==='PlayerBase'){	//checks if there is a player base
 			this.attacking=true;
 			//this.lastAttacking=this.now;
 			this.body.vel.x=0;
-			this.pos.x = this.pos.x + 1;
-			if((this.now-this.lastHit >= 1000)){
-				this.lastHit = this.now;
-				response.b.loseHealth(1);
+			this.pos.x = this.pos.x + 1;	//makes the creep keep moving
+			if((this.now-this.lastHit >= 1000)){	//attacks the base every second
+				this.lastHit = this.now;	//updates the last hit timer
+				response.b.loseHealth(1);	//calls the lose health function which loses the health with a damage of 1
 			}
 		}
 	}
