@@ -43,6 +43,7 @@ var game = {
 		me.pool.register("PlayerBase", game.PlayerBaseEntity, true);	//adds the player base to the pool
 		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);		//adds the enemy base to the pool
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);	//adds the enemy creep to the pool
+		me.pool.register("AllyCreep", game.AllyCreep, true);	//adds the enemy creep to the pool		
 		me.pool.register("GameManager", game.GameManager);	//adds the game manager to the pool		
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
