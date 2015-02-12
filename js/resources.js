@@ -9,7 +9,7 @@ game.resources = [
 {name: "player", type:"image", src: "data/img/skeletonDagger.png"}, //loads the player
 {name: "tower", type:"image", src: "data/img/tower_round.svg.png"}, //loads the player
 {name: "creep1", type:"image", src: "data/img/brainmonster.png"}, //loads the player
-{name: "gloop", type:"image", src: "data/img/gloop.png"}, //loads the player
+{name: "creep2", type:"image", src: "data/img/gloop.png"}, //loads the player
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
