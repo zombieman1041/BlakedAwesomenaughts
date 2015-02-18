@@ -274,16 +274,16 @@ game.MyCreep = me.Entity.extend({
 			}
 		}]);
 		
-		// this.health = 10;
-		// this.alwaysUpdate = true;
+		 this.health = 10;
+		 this.alwaysUpdate = true;
 		// //this.attacking lets us know if the enemy is currently attacking
-		// this.attacking = false;
+		 this.attacking = false;
 		// //keeps track of when our creep last attacked anyting
-		// this.lastAttacking = new Date().getTime();
-		// this.lastHit = new Date().getTime();
-		// this.now = new Date().getTime();
+		 this.lastAttacking = new Date().getTime();
+		 this.lastHit = new Date().getTime();
+		 this.now = new Date().getTime();
 
-		this.body.setVelocity(5, 20);
+		this.body.setVelocity(3, 20);
 
 		this.type = "MyCreep";
 
@@ -296,31 +296,32 @@ game.MyCreep = me.Entity.extend({
 		this.body.vel.x += this.body.accel.x * me.timer.tick;
 		this.flipX(true);
 		
-		// me.collision.check(this, true, this.collideHandler.bind(this), true);
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		this.body.update(delta);
 
 		this._super(me.Entity, "update", [delta]);
 		return true;
 
+		},
+	
+
+	collideHandler: function(response)	{
+		if(response.b.type==='EnemyBaseEntity'){
+			this.attacking = true;
+			//this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			this.pos.x = this.pos.x +1;
+			//checks that it has been at least 1 second since this creep hit a base
+			if((this.now-this.lastHit <= 1000)){
+				//updates the last hit timer
+				this.lastHit = this.now;
+				//makes the player base call its loseHealth	function and passes it a damage of 1
+				response.b.loseHealth(1);
+			 }
+			}
 		}
 	});
-
-	// collideHandler: function(response)	{
-	// 	if(response.b.type==='PlayerEntityBase'){
-	// 		this.attacking = true;
-	// 		//this.lastAttacking = this.now;
-	// 		this.body.vel.x = 0;
-	// 		this.pos.x = this.pos.x +1;
-	// 		//checks that it has been at least 1 second since this creep hit a base
-	// 		if((this.now-this.lastHit >= 1000)){
-	// 			//updates the last hit timer
-	// 			this.lastHit = this.now;
-	// 			//makes the player base call its loseHealth	function and passes it a damage of 1
-	// 			response.b.loseHealth(1);
-	// 		}
-	// 	}
-	// },
 
 	// end of challenge
 
