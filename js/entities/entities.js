@@ -120,6 +120,28 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		 	this.lastHit = this.now;
 		 	response.b.loseHealth();
 		 }
+		}else if(response.b.type==='EnemyCreep'){
+			var xdif = this.pos.x - response.b.pos.x;
+			var ydif = this.pos.y - response.b.pos.y;
+
+			if(xdif>0){
+				this.pos.x = this.pos.x + 1;
+				if(this.facing==="left"){
+					this.body.vel.x = 0;
+				}
+			}else{
+				this.pos.x = this.pos.x - 1;
+				if(this.facing==="right"){
+					this.body.vel.x = 0;
+				}
+			}
+			if(this.renderable.isCurrentAnimation("attack")&& this.now-this.lastHit >= 1000
+				&& (Math.abs(ydif) <=40) && 
+				((xdif>0) && this.facing==="left") || ((xdif<0) && this.facing==="right") 
+				){
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
 		}
 	}
 });
@@ -230,7 +252,14 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 		this.renderable.setCurrentAnimation("walk");
 	},
 
+		loseHealth: function(damage){
+			this.health = this.health - damage;
+		},
+
 	update: function(delta){
+		if(this.health <= 0){
+			me.game.world.removeChild(this);
+		}
 		this.now = new Date() . getTime();	//creates a timer
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;	//causes creeps to move
 		this.flipX(true);
