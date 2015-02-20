@@ -30,5 +30,11 @@ game.PlayScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);
+	},
+
+	resetPlayer: function(x, y){
+
+		game.data.player = me.pool.pull("player", x, y, {});	//loads the player to the map		
+		me.game.world.addChild(game.data.player, 5);	//adds the player to the world		
 	}
 });

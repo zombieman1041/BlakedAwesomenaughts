@@ -5,7 +5,22 @@ var game = {
 	// an object where to store game information
 	data : {
 		// score
-		score : 0
+		score : 0,
+		allyCreepHealth: 10,
+		allyCreepMoveSpeed: 3,
+		allyCreepAttackTimer: 1000,
+		enemyBaseHealth: 10,
+		playerBaseHealth: 10,
+		enemyCreepHealth: 10,
+		playerHealth: 10,
+		enemyCreepAttack: 1,
+		playerAttack: 1,
+		playerAttackTimer: 1000,
+		enemyCreepAttackTimer: 1000,
+		playerMoveSpeed: 3,
+		creepMoveSpeed: 3,
+		GameManager: "",
+		player: ""
 	},
 	
 	
@@ -49,6 +64,6 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
-		me.state.change(me.state.PLAY); //allows the game to play
+		me.state.change(me.state.MENU); //allows the game to play
 	}
 };
