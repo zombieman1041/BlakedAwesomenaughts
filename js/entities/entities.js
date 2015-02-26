@@ -1,21 +1,19 @@
 // TODO
 game.PlayerEntity = me.Entity.extend	//builds the player class
 ({
-		this.setSuper();
+	init: function(x, y, settings){//sets up basic function
+		this.setSuper(x, y);
 		this.setPlayerTimer();
 		this.setAttributes();
 		this.type="PlayerEntity";
 		this.setFlags();
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);	//makes camera follow you
 		this.addAnimation();
-		this.renderable.setCurrentAnimation("idle");	//sets the idle animation
+		this.renderable.setCurrentAnimation("idle");	//sets the idle animation	
 	},
 
-	setSuper: function(){
-		init: function(x,y, settings)	//sets up basic function
-			{
-				this._super(me.Entity, 'init', [x, y, //._super reaches to the object entity 
-			{
+	setSuper: function(x, y){
+				this._super(me.Entity, 'init', [x, y, {//._super reaches to the object entity 
 				image: "player",//uses the image player
 				width: 64,	//preserves the height and width for player
 				height: 64,
@@ -42,6 +40,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		this.facing = "right";	//makes the character face right
 		
 		this.dead = false;	
+		this.attacking = false;
 	},
 	addAnimation: function(){
 		this.renderable.addAnimation("idle", [78]);	//idle animation
@@ -50,71 +49,68 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	},
 	update: function(delta){
 		this.now = new Date().getTime();	//everytime we call update it updates the time
+		this.dead = this.checkIfDead();
+		this.checkKeyPressesAndMove();
+		this.setAnimation();
+		me.collision.check(this, true, this.collideHandler.bind(this), true);	//checks for collision
+		this.body.update(delta);	//delta is the change in time
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	checkIfDead: function(){
 		if (this.health <= 0){
-			this.dead = true;
-		}
+			return true;
+		}		
+	},
+
+	checkKeyPressesAndMove: function(){
 		if(me.input.isKeyPressed("right")){	//checks to see if the right key is pressed
-			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
-			this.facing = "right";	//sets the character to face right
-			this.flipX(false);
+			this.moveRight();
 		}
 		else if(me.input.isKeyPressed("left")){		//allows the player to move left
-			this.body.vel.x -= this.body.accel.x * me.timer.tick;
-			this.facing = "left";
-			this.flipX(true);	
+			this.moveLeft();
 		}
 		else{
 			this.body.vel.x = 0;	//stops the movement
 		}
 
-
-
-
 		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling){	//allows the player to jump without double jumping or falling and jumping
-			this.body.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+			this.jump();
 		}
 
+			this.attacking = me.input.isKeyPressed("attack");	//attack key		
+	},
 
-
-			if(me.input.isKeyPressed("attack")){	//attack key
+	moveRight: function(){
+			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
+			this.facing = "right";	//sets the character to face right
+			this.flipX(false);
+	},
+	moveLeft: function(){
+			this.body.vel.x -= this.body.accel.x * me.timer.tick;
+			this.facing = "left";
+			this.flipX(true);			
+		},
+	jump: function(){
+			this.body.jumping = true;
+			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+	},
+	setAnimation: function(){
+		if(this.attacking){
 			if(!this.renderable.isCurrentAnimation("attack")){
 				this.renderable.setCurrentAnimation("attack", "idle");
 				this.renderable.setAnimationFrame();
 			}
 		}
-		
-
-
 		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){ //changes the animation from attack to walking
-		if (!this.renderable.isCurrentAnimation("walk")) {	//sets the current animation for walk
-			this.renderable.setCurrentAnimation("walk");
-		};			
-	}
+			if (!this.renderable.isCurrentAnimation("walk")) {	//sets the current animation for walk
+				this.renderable.setCurrentAnimation("walk");
+			};			
+		}
 	else if(!this.renderable.isCurrentAnimation("attack")){	//changes the animation from attack to idle
-		this.renderable.setCurrentAnimation("idle");	//if the player is not walking it uses idle animation
-	}
-	// 	if(me.input.isKeyPressed("left")){	//checks to see if the left key is pressed
-	// 		this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
-	// 		this.flipX(true);
-	// 	}
-	// 	else{
-	// 		this.body.vel.x = 0;	//stops the movement
-	// 	}
-
-	// 	if(this.body.vel.x !== 0){
-	// 	if (!this.renderable.isCurrentAnimation("walk")) {
-	// 		this.renderable.setCurrentAnimation("walk");
-	// 	};			
-	// }
-	// else{
-	// 	this.renderable.setCurrentAnimation("idle");
-	// }	
-
-		me.collision.check(this, true, this.collideHandler.bind(this), true);	//checks for collision
-		this.body.update(delta);	//delta is the change in time
-		this._super(me.Entity, "update", [delta]);
-		return true;
+			this.renderable.setCurrentAnimation("idle");	//if the player is not walking it uses idle animation
+		}
 	},
 
 	loseHealth: function(damage){
@@ -122,7 +118,15 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	},
 	collideHandler: function(response){
 		if(response.b.type==='EnemyBaseEntity'){	//sees if the enemy base entitiy is near a player entity and if so it is solid from left and right and top
-		 var ydif = this.pos.y - response.b.pos.y;
+		 this.collideWithEnemyBase(response);
+		}
+
+		else if(response.b.type==='EnemyCreep'){
+			this.collideWithEnemyCreep(response);
+		}
+	},
+	collideWithEnemyBase: function(response){
+		var ydif = this.pos.y - response.b.pos.y;
 		 var xdif = this.pos.x - response.b.pos.x;
 		if(ydif<-40 && xdif<70 && xdif>-35){
 		 	this.body.falling=false;
@@ -137,38 +141,51 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		 }
 
 		 if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer){	//if the animation is attack it will lose the base health and that it will check when the lasthit was 
-		 	
-		 	this.lastHit = this.now;
+		 		this.lastHit = this.now;
+		 		response.b.loseHealth(game.data.playerAttack);
+		 	}
+		
+	},
+	collideWithEnemyCreep: function(response){
+		var xdif = this.pos.x - response.b.pos.x;
+		var ydif = this.pos.y - response.b.pos.y;
+
+		this.stopMovement(xdif);
+
+		if(this.checkAttack(xdif, ydif)){
+			this.hitCreep(response);		 	
+		};
+
+	},
+
+	stopMovement: function(xdif){
+		if(xdif > 0){
+			//this.pos.x = this.pos.x + 1;
+			if (this.facing === "left"){
+				this.body.vel.x = 0;
+			}
+		}
+		else{
+			//this.pos.x = this.pos.x - 1;
+			if(this.facing === "right"){
+				this.body.vel.x = 0;
+			}
+		}
+	},
+	checkAttack: function(xdif, ydif){
+		if(this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= game.data.playerAttackTimer
+			&& (Math.abs(ydif) <=40) && 
+			((xdif>0) && this.facing==="left") || (((xdif<0) && this.facing === "right"))){
+			this.lastHit = this.now;
+			return true;
+		}
+			return false;
+	},
+	hitCreep: function(response){
 		 	if(response.b.health <= game.data.playerAttack){
 		 		game.data.gold += 1;
 		 	}
-		 	response.b.loseHealth(game.data.playerAttack);
-		 }
-		}
-
-		else if(response.b.type==='EnemyCreep'){
-			var xdif = this.pos.x - response.b.pos.x;
-			var ydif = this.pos.y - response.b.pos.y;
-
-			if(xdif > 0){
-				//this.pos.x = this.pos.x + 1;
-				if (this.facing === "left"){
-					this.body.vel.x = 0;
-				}
-			}
-			else{
-				//this.pos.x = this.pos.x - 1;
-				if(this.facing === "right"){
-					this.body.vel.x = 0;
-				}
-			}
-			if(this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= game.data.playerAttackTimer
-				&& (Math.abs(ydif) <=40) && 
-				((xdif>0) && this.facing==="left") || (((xdif<0) && this.facing === "right"))){
-				this.lastHit = this.now;
-				response.b.loseHealth(game.data.playerAttack);
-			}
-		}
+		 	response.b.loseHealth(game.data.playerAttack);		
 	}
 });
 
