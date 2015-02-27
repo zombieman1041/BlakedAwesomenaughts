@@ -26,6 +26,8 @@ game.resources = [
 	 * @example
 	 * {name: "example_bgm", type: "audio", src: "data/bgm/"},
 	 */	
+{name: "cupcakes", type: "audio", src: "data/bgm/"}, //loads the map
+{name: "dragons", type: "audio", src: "data/bgm/"}, //loads the map	 
 
 	/* Sound effects. 
 	 * @example

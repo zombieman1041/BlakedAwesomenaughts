@@ -13,17 +13,16 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	},
 
 	setSuper: function(x, y){
-				this._super(me.Entity, 'init', [x, y, {//._super reaches to the object entity 
-				image: "player",//uses the image player
-				width: 64,	//preserves the height and width for player
-				height: 64,
-				spritewidth: "64", //uses height and width for player
-				spriteheight: "64",
-				getShape: function()
-				{
-					return(new me.Rect(0, 0, 64, 64)) . toPolygon();	//creates a little rectangle for what the player can walk into.
-				}
-		}]);
+		this._super(me.Entity, 'init', [x, y, {//._super reaches to the object entity 
+		image: "player",//uses the image player
+		width: 64,	//preserves the height and width for player
+		height: 64,
+		spritewidth: "64", //uses height and width for player
+		spriteheight: "64",
+		getShape: function(){
+			return(new me.Rect(0, 0, 64, 64)) . toPolygon();	//creates a little rectangle for what the player can walk into.
+		}
+	}]);
 	},
 	setPlayerTimer: function(){
 		this.now = new Date().getTime();	//keeps track of what time it is
@@ -79,22 +78,22 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 			this.jump();
 		}
 
-			this.attacking = me.input.isKeyPressed("attack");	//attack key		
+		this.attacking = me.input.isKeyPressed("attack");	//attack key		
 	},
 
 	moveRight: function(){
-			this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
-			this.facing = "right";	//sets the character to face right
-			this.flipX(false);
+		this.body.vel.x += this.body.accel.x * me.timer.tick; //adds the velocity to the set velocity and mutiplies by the me.timer.tick and makes the movement smooth
+		this.facing = "right";	//sets the character to face right
+		this.flipX(false);
 	},
 	moveLeft: function(){
-			this.body.vel.x -= this.body.accel.x * me.timer.tick;
-			this.facing = "left";
-			this.flipX(true);			
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+		this.facing = "left";
+		this.flipX(true);			
 		},
 	jump: function(){
-			this.body.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+		this.body.jumping = true;
+		this.body.vel.y -= this.body.accel.y * me.timer.tick;
 	},
 	setAnimation: function(){
 		if(this.attacking){
@@ -108,7 +107,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 				this.renderable.setCurrentAnimation("walk");
 			};			
 		}
-	else if(!this.renderable.isCurrentAnimation("attack")){	//changes the animation from attack to idle
+		else if(!this.renderable.isCurrentAnimation("attack")){	//changes the animation from attack to idle
 			this.renderable.setCurrentAnimation("idle");	//if the player is not walking it uses idle animation
 		}
 	},
@@ -118,7 +117,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	},
 	collideHandler: function(response){
 		if(response.b.type==='EnemyBaseEntity'){	//sees if the enemy base entitiy is near a player entity and if so it is solid from left and right and top
-		 this.collideWithEnemyBase(response);
+		this.collideWithEnemyBase(response);
 		}
 
 		else if(response.b.type==='EnemyCreep'){
@@ -127,7 +126,7 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 	},
 	collideWithEnemyBase: function(response){
 		var ydif = this.pos.y - response.b.pos.y;
-		 var xdif = this.pos.x - response.b.pos.x;
+		var xdif = this.pos.x - response.b.pos.x;
 		if(ydif<-40 && xdif<70 && xdif>-35){
 		 	this.body.falling=false;
 		 	this.body.vel.y = -1;
@@ -135,7 +134,8 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		 if(xdif>-35 && this.facing==='right' && (xdif<0)){
 		 	this.body.vel.x = 0;
 		 	//this.pos.x = this.pos.x -1;
-		 }else if(xdif<70 && this.facing==='left' && (xdif>0)){
+		 }
+		 else if(xdif<70 && this.facing==='left' && (xdif>0)){
 		 	this.body.vel.x=0;
 		 	//this.pos.x = this.pos.x +1;
 		 }
