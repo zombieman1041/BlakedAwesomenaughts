@@ -24,6 +24,7 @@ game.PlayerBaseEntity = me.Entity.extend({	//creates the player base
 	update:function(delta){	//if health reaches zero it changes the image to "broken"
 		if(this.health<=0){
 			this.broken = true;
+			game.data.win = false;
 			this.renderable.setCurrentAnimation("broken");	
 		}
 		this.body.update(delta);

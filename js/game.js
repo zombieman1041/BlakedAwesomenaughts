@@ -19,14 +19,18 @@ var game = {
 		enemyCreepAttackTimer: 1000,
 		playerMoveSpeed: 3,
 		creepMoveSpeed: 3,
-		GameManager: "",
+		GameTimerManager: "",
+		HeroDeathManager: "",
 		player: "",
 		exp: 0,
 		gold: 0,
 		exp1: 0,
 		exp2: 0,
 		exp3: 0, 
-		exp4:0
+		exp4:0,
+		win: "",
+		pausePos: "",
+		buyscreen: ""
 	},
 	
 	
@@ -44,7 +48,8 @@ var game = {
 			me.plugin.register.defer(this, debugPanel, "debug");
 		});
 	}
-
+	me.save.add({exp: 0, exp1: 0, exp2: 0, exp3: 0, exp4: 0});
+	me.state.SPENDEXP = 112;
 	// Initialize the audio.
 	me.audio.init("mp3,ogg");
 
@@ -65,9 +70,13 @@ var game = {
 		me.pool.register("EnemyBase", game.EnemyBaseEntity, true);		//adds the enemy base to the pool
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);	//adds the enemy creep to the pool
 		me.pool.register("MyCreep", game.MyCreep, true);	
-		me.pool.register("GameManager", game.GameManager);	//adds the game manager to the pool		
+		me.pool.register("GameTimerManager", game.GameTimerManager);	//adds the game manager to the pool
+		me.pool.register("HeroDeathManager", game.HeroDeathManager);	//adds the hero death manager to the pool	
+		me.pool.register("ExperienceManager", game.ExperienceManager);	//adds the experience manager to the pool				
+		me.pool.register("SpendGold", game.SpendGold);		
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
+		me.state.set(me.state.SPENDEXP, new game.SpendExp());		
 
 		// Start the game.
 		me.state.change(me.state.MENU); //allows the game to play

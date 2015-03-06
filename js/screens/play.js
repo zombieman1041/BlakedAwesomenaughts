@@ -11,9 +11,22 @@ game.PlayScreen = me.ScreenObject.extend({
 		var player = me.pool.pull("player", 0, 420, {});	//loads the player to the map
 		me.game.world.addChild(player, 5);	//adds the player to the world
 
-		var gamemanager = me.pool.pull("GameManager", 0, 0, {});	//adds the game manager variable
-		me.game.world.addChild(gamemanager, 0);	//adds the game manager to the world
+		var gametimermanager = me.pool.pull("GameTimerManager", 0, 0, {});	//adds the game manager variable
+		me.game.world.addChild(gametimermanager, 0);	//adds the game manager to the world
 
+		var herodeathmanager = me.pool.pull("HeroDeathManager", 0, 0, {});	//adds the hero death manager variable
+		me.game.world.addChild(herodeathmanager, 0);	//adds the game manager to the world
+
+		var experienceManager = me.pool.pull("ExperienceManager", 0, 0, {});	//adds the experience manager variable
+		me.game.world.addChild(experienceManager, 0);	//adds the game manager to the world
+
+		var SpendGold = me.pool.pull("SpendGold", 0, 0, {});	//adds the experience manager variable
+		me.game.world.addChild(SpendGold, 0);
+				
+		me.input.bindKey(me.input.KEY.B, "buy");
+		me.input.bindKey(me.input.KEY.Q, "skill1");
+		me.input.bindKey(me.input.KEY.W, "skill2");	
+		me.input.bindKey(me.input.KEY.E, "skill3");					
 		me.input.bindKey(me.input.KEY.RIGHT, "right"); //sets the key to move right the right arrow
 		me.input.bindKey(me.input.KEY.A, "attack");		//binds the key A for attack
 		me.input.bindKey(me.input.KEY.SPACE, "jump");	//binds the key space bar for jump	

@@ -24,6 +24,7 @@ game.EnemyBaseEntity = me.Entity.extend({	//creates the enemy base
 	update:function(delta){		//if health reaches zero image changes to "broken"
 		if(this.health<=0){
 			this.broken = true;
+			game.data.win = true;
 			this.renderable.setCurrentAnimation("broken");
 		}
 		this.body.update(delta);
