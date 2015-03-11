@@ -74,7 +74,7 @@ game.ExperienceManager = Object.extend({
 	
 });
 
-game.spendGold = Object.extend({
+game.SpendGold = Object.extend({
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastBuy = new Date().getTime();
