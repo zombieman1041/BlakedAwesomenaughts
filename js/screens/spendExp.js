@@ -2,7 +2,7 @@ game.SpendExp = me.ScreenObject.extend({
 	/**	
 	 *  action to perform on state change
 	 */
-	onResetEvent: function() {	
+	onResetEvent: function() {	// allows you to spend experience
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('exp-screen')), -10); // TODO
 		me.audio.playTrack("dragons");
 
@@ -56,7 +56,7 @@ game.SpendExp = me.ScreenObject.extend({
 	/**	
 	 *  action to perform when leaving this screen (state change)
 	 */
-	onDestroyEvent: function() {
+	onDestroyEvent: function() {	// allows you to get out of the experience shop
 		me.input.unbindKey(me.input.KEY.F1, "F1");
 		me.input.unbindKey(me.input.KEY.F2, "F2");
 		me.input.unbindKey(me.input.KEY.F3, "F3");
