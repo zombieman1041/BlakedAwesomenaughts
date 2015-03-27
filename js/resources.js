@@ -13,6 +13,8 @@ game.resources = [
 {name: "title-screen", type:"image", src: "data/img/gabe.png"}, //loads the player
 {name: "exp-screen", type:"image", src: "data/img/loadpic.png"}, //loads the player
 {name: "gold-screen", type:"image", src: "data/img/spend.png"}, //loads the player
+{name: "load-screen", type:"image", src: "data/img/uuuh.png"}, //loads the player
+{name: "new-screen", type:"image", src: "data/img/uuuh.png"}, //loads the player
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
@@ -29,7 +31,8 @@ game.resources = [
 	 * {name: "example_bgm", type: "audio", src: "data/bgm/"},
 	 */	
 {name: "cupcakes", type: "audio", src: "data/bgm/"}, //loads the map
-{name: "dragons", type: "audio", src: "data/bgm/"}, //loads the map	 
+{name: "dragons", type: "audio", src: "data/bgm/"}, //loads the map
+{name: "oneyg", type: "audio", src: "data/bgm/"}, //loads the map	 
 
 	/* Sound effects. 
 	 * @example
