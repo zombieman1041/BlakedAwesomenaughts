@@ -13,7 +13,7 @@
 	$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING); //filters the input of the username and sanitizes from username
 	$password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING); //filters the input of the password and sanitizes from password
 
-	$query = $_SESSION["connection"]->query("SELECT * FROM users WHERE BINARY username='$username'");//creates a table by query that sets email username password(as a hashed password) and salt
+	$query = $_SESSION["connection"]->query("SELECT * FROM users WHERE BINARY username ='$username'");//creates a table by query that sets email username password(as a hashed password) and salt
 
 	if ($query->num_rows == 1) {
 		# code...
@@ -34,10 +34,10 @@
 		}
 		else {
 			# code...
-			echo "<p>Invalid username and password</p>";
+			echo "Invalid username and password";
 		}
 	}
 	else{
-		echo "<p>Invalid username and password</p>";
+		echo "Invalid username and password";
 	}
 ?>

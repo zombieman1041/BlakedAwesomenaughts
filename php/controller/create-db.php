@@ -10,11 +10,17 @@
 	. "email varchar(50) NOT NULL,"						// creates a collumn for a email with a max length of 50 characters and it cant be empty
 	. "password char(128) NOT NULL,"					// creates a collumn for a password with a max length of 128 characters and it cant be empty
 	. "salt char(128) NOT NULL,"						//creates a security against hackers that cant be empty
-	. "exp init (4),"
-	. "exp1 init (4),"
-	. "exp2 init (4),"
-	. "exp3 init (4),"
-	. "exp4 init (4),"
+	. "exp int(4),"
+	. "exp1 int(4),"
+	. "exp2 int(4),"
+	. "exp3 int(4),"
+	. "exp4 int(4),"
 	. "PRIMARY KEY(id))");								// allows the tables to be connected and is shown that it is connected by an id
 	
+	if($query){
+		echo "true";
+	}
+	else{
+		echo "<p>" . $_SESSION["connection"]->error . "</p>";
+	}
 ?>

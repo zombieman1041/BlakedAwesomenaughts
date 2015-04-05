@@ -15,8 +15,8 @@
         <link rel="apple-touch-icon" sizes="120x120" href="icons/touch-icon-iphone-retina-120x120.png">
         <link rel="apple-touch-icon" sizes="152x152" href="icons/touch-icon-ipad-retina-152x152.png">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>	<!-- jquery -->
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 	</head>
 	<body>
 		<!-- Canvas placeholder -->
@@ -28,7 +28,7 @@
 			</div>
 			<div class="password">
 				<label for="password">Password</label>
-				<input type='text' name='password' id='password'>
+				<input type='password' name='password' id='password'>
 			</div>
 
 			<button type="button" id='register'>Register</button>
@@ -55,6 +55,7 @@
 		<script type="text/javascript" src="js/gamemanagers/SpendGold.js"></script>		
 		<script type="text/javascript" src="js/entities/EnemyCreep.js"></script>
 		<script type="text/javascript" src="js/entities/HUD.js"></script>
+		<script type="text/javascript" src="js/entities/SpearThrow.js"></script>
 
 		<script type="text/javascript" src="js/screens/title.js"></script>
 		<script type="text/javascript" src="js/screens/play.js"></script>
@@ -108,6 +109,34 @@
 					}
 					else{
 						alert(response);
+					}
+				})
+				.fail(function(response){
+					alert("Fail");
+				});
+		});
+		$("#load").bind("click", function(){
+			$.ajax({
+				type: "POST",
+				url: "php/controller/login-user.php",
+				data: {
+					username: $('#username').val(),
+					password: $('#password').val()
+				},
+				dataType: "text"
+			})
+				.success(function(response){
+					if(response==="Invalid username and password"){
+						alert(response);
+					}
+					else{
+						var data = jQuery.parseJSON(response);
+						game.data.exp = data["exp"];
+						game.data.exp1 = data["exp1"];
+						game.data.exp2 = data["exp2"];
+						game.data.exp3 = data["exp3"];
+						game.data.exp4 = data["exp4"];
+						me.state.change(me.state.SPENDEXP);
 					}
 				})
 				.fail(function(response){

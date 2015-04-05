@@ -6,6 +6,8 @@ var game = {
 	data : {
 		// score
 		score : 0,
+		option1: "",
+		option2: "",
 		allyCreepHealth: 10,
 		allyCreepMoveSpeed: 3,
 		allyCreepAttackTimer: 1000,
@@ -21,6 +23,7 @@ var game = {
 		creepMoveSpeed: 3,
 		GameTimerManager: "",
 		HeroDeathManager: "",
+		spearTimer: 15,
 		player: "",
 		exp: 0,
 		gold: 0,
@@ -81,7 +84,8 @@ var game = {
 		me.pool.register("GameTimerManager", game.GameTimerManager);	//adds the game manager to the pool
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);	//adds the hero death manager to the pool	
 		me.pool.register("ExperienceManager", game.ExperienceManager);	//adds the experience manager to the pool				
-		me.pool.register("SpendGold", game.SpendGold);		
+		me.pool.register("SpendGold", game.SpendGold);
+		me.pool.register("spear", game.SpearThrow);		
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 		me.state.set(me.state.SPENDEXP, new game.SpendExp());
