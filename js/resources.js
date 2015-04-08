@@ -16,6 +16,7 @@ game.resources = [
 {name: "load-screen", type:"image", src: "data/img/uuuh.png"}, //loads the player
 {name: "new-screen", type:"image", src: "data/img/uuuh.png"}, //loads the player
 {name: "spear", type:"image", src: "data/img/spear.png"}, //loads the player
+{name: "minimap", type:"image", src: "data/img/minimap.png"}, //loads the player
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},

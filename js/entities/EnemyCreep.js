@@ -24,9 +24,9 @@ game.EnemyCreep = me.Entity.extend({	//creates the enemy creeps
 		this.renderable.setCurrentAnimation("walk");
 	},
 
-		loseHealth: function(damage){
-			this.health = this.health - damage;
-		},
+	loseHealth: function(damage){
+		this.health = this.health - damage;
+	},
 
 	update: function(delta){
 		if(this.health <= 0){

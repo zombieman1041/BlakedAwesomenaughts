@@ -22,6 +22,9 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		var spendGold = me.pool.pull("SpendGold", 0, 0, {});	//adds the experience manager variable
 		me.game.world.addChild(spendGold, 0);
+
+		game.data.minimap = me.pool.pull("minimap", 10, 10, {});
+		me.game.world.addChild(game.data.minimap, 30);
 				
 		me.input.bindKey(me.input.KEY.B, "buy");
 		me.input.bindKey(me.input.KEY.Q, "skill1");
@@ -53,5 +56,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		game.data.player = me.pool.pull("player", x, y, {});	//loads the player to the map		
 		me.game.world.addChild(game.data.player, 5);	//adds the player to the world		
+		game.data.miniPlayer = me.pool.pull("miniplayer", 10, 10, {});
+		me.game.world.addChild(game.data.miniPlayer, 31);	
 	}
 });

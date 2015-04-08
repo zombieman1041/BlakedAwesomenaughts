@@ -152,19 +152,19 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 		 	this.body.falling=false;
 		 	this.body.vel.y = -1;
 		}
-		 if(xdif>-35 && this.facing==='right' && (xdif<0)){
+		if(xdif>-35 && this.facing==='right' && (xdif<0)){
 		 	this.body.vel.x = 0;
 		 	//this.pos.x = this.pos.x -1;
-		 }
-		 else if(xdif<70 && this.facing==='left' && (xdif>0)){
+		}
+		else if(xdif<70 && this.facing==='left' && (xdif>0)){
 		 	this.body.vel.x=0;
 		 	//this.pos.x = this.pos.x +1;
-		 }
+		}
 
-		 if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer){	//if the animation is attack it will lose the base health and that it will check when the lasthit was 
+		if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer){	//if the animation is attack it will lose the base health and that it will check when the lasthit was 
 		 		this.lastHit = this.now;
 		 		response.b.loseHealth(game.data.playerAttack);
-		 	}
+		}
 		
 	},
 	collideWithEnemyCreep: function(response){
@@ -200,13 +200,13 @@ game.PlayerEntity = me.Entity.extend	//builds the player class
 			this.lastHit = this.now;
 			return true;
 		}
-			return false;
+		return false;
 	},
 	hitCreep: function(response){
-		 	if(response.b.health <= game.data.playerAttack){
-		 		game.data.gold += 1;
-		 	}
-		 	response.b.loseHealth(game.data.playerAttack);		
+		if(response.b.health <= game.data.playerAttack){
+		 	game.data.gold += 1;
+		 }
+		response.b.loseHealth(game.data.playerAttack);		
 	}
 });
 
@@ -226,14 +226,14 @@ game.MyCreep = me.Entity.extend({
 			}
 		}]);
 		
-		 this.health = game.data.allyCreepHealth;
-		 this.alwaysUpdate = true;
+		this.health = game.data.allyCreepHealth;
+		this.alwaysUpdate = true;
 		// //this.attacking lets us know if the enemy is currently attacking
-		 this.attacking = false;
+		this.attacking = false;
 		// //keeps track of when our creep last attacked anyting
-		 this.lastAttacking = new Date().getTime();
-		 this.lastHit = new Date().getTime();
-		 this.now = new Date().getTime();
+		this.lastAttacking = new Date().getTime();
+		this.lastHit = new Date().getTime();
+		this.now = new Date().getTime();
 
 		this.body.setVelocity(game.data.allyCreepMoveSpeed, 20);
 
@@ -270,47 +270,9 @@ game.MyCreep = me.Entity.extend({
 				this.lastHit = this.now;
 				//makes the player base call its loseHealth	function and passes it a damage of 1
 				response.b.loseHealth(1);
-			 }
+			 	}
 			}
 		}
 	});
 
 	// end of challenge
-
-
-// 	update: function(delta){
-// 		this.now = new Date() . getTime();	//creates a timer
-// 		this.body.vel.x -= this.body.accel.x * me.timer.tick;	//causes creeps to move
-// 		me.collision.check(this, true, this.collideHandler.bind(this), true);	//checks for collisions
-// 		this.body.update(delta);	//causes the creep to fall to the ground
-// 		this._super(me.Entity,"update", [delta]);
-// 		return true;
-// 	},
-// 	collideHandler: function(response){
-// 		if(response.b.type==='PlayerBase'){	//checks if there is a player base
-// 			this.attacking=true;
-// 			//this.lastAttacking=this.now;
-// 			this.body.vel.x=0;
-// 			this.pos.x = this.pos.x + 1;	//makes the creep keep moving
-// 			if((this.now-this.lastHit >= 1000)){	//attacks the base every second
-// 				this.lastHit = this.now;	//updates the last hit timer
-// 				response.b.loseHealth(1);	//calls the lose health function which loses the health with a damage of 1
-// 			}
-// 		}else if(response.b.type==='PlayerEntity'){
-// 			var xdif = this.pos.x - response.b.pos.x;
-// 			this.attacking=true;
-// 			//this.lastAttacking=this.now;
-			
-// 			if(xdif>0){
-// 				this.pos.x = this.pos.x + 1;	//makes the creep keep moving
-// 				this.body.vel.x=0;
-// 			}
-			
-// 			if(this.now-this.lastHit >= 700 && xdif>0){	//attacks the player every second
-// 				this.lastHit = this.now;	//updates the last hit timer
-// 				response.b.loseHealth(1);	//calls the lose health function which loses the health with a damage of 1
-// 			}			
-// 		}
-// 	}
-// });
-

@@ -56,7 +56,7 @@ game.SpendGold = Object.extend({
 				this.font.draw(renderer.getContext(), "Skill 1: Increase Damage. Current level: " + game.data.skill1 + "Cost: " + ((game.data.skill1+1)*10), this.pos.x, this.pos.y +80);
 				this.font.draw(renderer.getContext(), "Skill 2: Increase Health. Curent level: " + game.data.skill2 + "Cost: " + ((game.data.skill2+1)*10), this.pos.x, this.pos.y +120);
 				this.font.draw(renderer.getContext(), "Skill 3: Run Faster. Current level: " + game.data.skill3 + "Cost: " + ((game.data.skill3+1)*10), this.pos.x, this.pos.y +160);
-				this.font.draw(renderer.getContext(), "Q ability: Speed Burst. Current level: " + game.data.ability1 + "Cost: " + ((game.data.ability2+1)*10) , this.pos.x, this.pos.y +200);
+				this.font.draw(renderer.getContext(), "Q ability: Speed Burst. Current level: " + game.data.ability1 + "Cost: " + ((game.data.ability1+1)*10) , this.pos.x, this.pos.y +200);
 				this.font.draw(renderer.getContext(), "W ability: Eat your creep for Health. Current level: " + game.data.ability2 + "Cost: " + ((game.data.ability2+1)*10), this.pos.x, this.pos.y +240);
 				this.font.draw(renderer.getContext(), "E ability: Throw dagger. Current level: " + game.data.ability3 + "Cost: " + ((game.data.ability3+1)*10), this.pos.x, this.pos.y +280);				
 			
